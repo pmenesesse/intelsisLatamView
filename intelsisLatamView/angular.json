@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "intelsisLatamView"
+    }
+  },
+  "defaultProject": "intelsisLatamView",
+  "cli": {
+    "analytics": false
+  }
 }
