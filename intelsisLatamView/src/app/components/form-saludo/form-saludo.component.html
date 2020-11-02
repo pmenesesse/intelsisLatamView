@@ -1,0 +1,76 @@
+<h3 ><p>Portal Cumpleaños</p></h3>
+
+<form (ngSubmit)="getInfoPersona(formulario)"
+ #formulario="ngForm" >
+    <div class="form-group row">
+        <label for="txtNombre" class="col-2 col-form-label">Nombre : </label>
+      <div class="col-10">
+        <input  type="text"
+        [(ngModel)]="primerNombre"
+        name="txtNombre"
+         class="form-control" 
+         placeholder="Primer Nombre"
+         id="txtNombre"
+         required
+         >
+         
+      </div>
+    </div>
+      <div class="form-group row">
+      <label for="txtApellido" class="col-2 col-form-label">Apellido : </label>
+      <div class="col-10">
+        <input type="text"
+         [(ngModel)]="primerApellido"
+         class="form-control" 
+         placeholder="Primer Apellido"
+         id="txtApellido"
+         name="txtApellido"
+         required
+         >
+      </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="fechaCumple" class="col-2 col-form-label">Fecha Nacimiento :</label>
+        <div class="col-10">
+          <input class="form-control" type="date" placeholder="dd-MM-yyyy"  name="fechaCumple"  [(ngModel)]="fechaNacimiento" id="fechaCumple" required max="">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-10">
+      <button ng-disabled="loading"  type="submit"  class="btn btn-primary">Consultar</button>
+        </div>
+      </div>
+  </form>
+  
+ <div *ngIf="loading " class="text-center" > 
+  <div class="spinner-border text-center" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+ </div> 
+
+  <div *ngIf="!loading && error" class="alert alert-danger animated fadeIn">
+    <h3>Error</h3>
+    <p>
+        {{ mensajeError }}
+    </p>
+</div>
+
+<div class="card" *ngIf="!loading && !error && infoCliente != null">
+  <div class="card-header" *ngIf="infoCliente.poemaSaludo.msjFelicitacion !== null" >
+    <strong> Estimado  {{ infoCliente.primerNombre}} {{ infoCliente.apellidos}}
+    {{ infoCliente.poemaSaludo.msjFelicitacion}}</strong>
+  </div>
+  <div class="card-header" *ngIf="infoCliente.poemaSaludo.msjFelicitacion == null" >
+   Estimado  {{ infoCliente.primerNombre}} {{ infoCliente.apellidos}}
+   faltan <strong>{{ infoCliente.poemaSaludo.difDiasCump}}</strong> días para tu cumpleaños
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p class="card-text"></p>
+    <p *ngIf="infoCliente.poemaSaludo.poema !== null" class="card-text"><strong>Un regalo para ti en tu cumpleaños numero : {{infoCliente.edad}}  </strong> </p>
+    <p *ngIf="infoCliente.poemaSaludo.poema !== null" class="card-text">{{ infoCliente.poemaSaludo.poema}}</p>
+    <p *ngIf="infoCliente.poemaSaludo.poema !== null" class="card-text"><strong>Autor : </strong> {{ infoCliente.poemaSaludo.autorPoema}}</p>
+  
+  </div>
+</div>
